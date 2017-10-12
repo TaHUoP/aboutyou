@@ -1,6 +1,6 @@
 <?php
 
-namespace AboutYou\Service;
+namespace AboutYou\Services;
 
 use AboutYou\Contracts\Services\CategoryServiceInterface;
 use AboutYou\Contracts\Services\ProductServiceInterface;
