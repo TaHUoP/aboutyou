@@ -25,4 +25,12 @@ class Category
      * @var \AboutYou\Entities\Product[]
      */
     public $products = [];
+
+    /**
+     * @return array
+     */
+    public function getProducts()
+    {
+        return $this->products;
+    }
 }

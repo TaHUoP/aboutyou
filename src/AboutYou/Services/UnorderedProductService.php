@@ -2,6 +2,7 @@
 
 namespace AboutYou\Service;
 
+use AboutYou\Contracts\Services\CategoryServiceInterface;
 use AboutYou\Contracts\Services\ProductServiceInterface;
 
 /**
@@ -10,25 +11,16 @@ use AboutYou\Contracts\Services\ProductServiceInterface;
 class UnorderedProductService implements ProductServiceInterface
 {
     /**
-     * @var ProductServiceInterface
+     * @var CategoryServiceInterface
      */
-    private $productService;
+    private $categoryService;
 
     /**
-     * Maps from category name to the id for the category service.
-     *  
-     * @var array
+     * @param CategoryServiceInterface $categoryService
      */
-    private $categoryNameToIdMapping = [
-        'Clothes' => 17325
-    ];
-
-    /**
-     * @param ProductServiceInterface $productService
-     */
-    public function __construct(ProductServiceInterface $productService)
+    public function __construct(CategoryServiceInterface $categoryService)
     {
-       $this->productService = $productService;
+       $this->categoryService = $categoryService;
     }
 
     /**
@@ -36,6 +28,9 @@ class UnorderedProductService implements ProductServiceInterface
      */
     public function getProductsByCategoryId($categoryId)
     {
+        $category = $this->categoryService->getCategoryById($categoryId);
+
+        return $category->getProducts();
     }
 
     /**
@@ -43,12 +38,8 @@ class UnorderedProductService implements ProductServiceInterface
      */
     public function getProductsByCategoryName($categoryName)
     {
-        if (!isset($this->categoryNameToIdMapping[$categoryName]))
-        {
-            throw new \InvalidArgumentException(sprintf('Given category name [%s] is not mapped.', $categoryName));
-        }
+        $category = $this->categoryService->getCategoryByName($categoryName);
 
-        $categoryId = $this->categoryNameToIdMapping[$categoryName];
-        $productResults = $this->productService->getProductsByCategoryName($categoryId);
+        return $category->getProducts();
     }
 }
