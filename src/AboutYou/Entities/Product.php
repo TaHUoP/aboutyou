@@ -1,6 +1,6 @@
 <?php
 
-namespace AboutYou\Entity;
+namespace AboutYou\Entities;
 
 
 class Product
@@ -29,7 +29,7 @@ class Product
     /**
      * Unsorted list of Variants with their corresponding prices.
      * 
-     * @var \AboutYou\Entity\Variant[]
+     * @var \AboutYou\Entities\Variant[]
      */
     public $variants = [];
 }

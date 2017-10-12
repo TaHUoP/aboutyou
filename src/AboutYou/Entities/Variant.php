@@ -1,6 +1,6 @@
 <?php
 
-namespace AboutYou\Entity;
+namespace AboutYou\Entities;
 
 
 class Variant
@@ -43,14 +43,14 @@ class Variant
     /**
      * Variant price.
      * 
-     * @var \AboutYou\Entity\Price
+     * @var \AboutYou\Entities\Price
      */
     public $price;
 
     /**
      * Product that the Variant belongs to.
      *
-     * @var \AboutYou\Entity\Product
+     * @var \AboutYou\Entities\Product
      */
     public $product;
 }

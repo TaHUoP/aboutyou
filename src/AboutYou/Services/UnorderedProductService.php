@@ -2,6 +2,8 @@
 
 namespace AboutYou\Service;
 
+use AboutYou\Contracts\Services\ProductServiceInterface;
+
 /**
  * This class is an (unfinished) example implementation of an unordered product service.
  */
@@ -32,7 +34,14 @@ class UnorderedProductService implements ProductServiceInterface
     /**
      * @inheritdoc
      */
-    public function getProductsForCategory($categoryName)
+    public function getProductsByCategoryId($categoryId)
+    {
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getProductsByCategoryName($categoryName)
     {
         if (!isset($this->categoryNameToIdMapping[$categoryName]))
         {
@@ -40,6 +49,6 @@ class UnorderedProductService implements ProductServiceInterface
         }
 
         $categoryId = $this->categoryNameToIdMapping[$categoryName];
-        $productResults = $this->productService->getProductsForCategory($categoryId);
+        $productResults = $this->productService->getProductsByCategoryName($categoryId);
     }
 }

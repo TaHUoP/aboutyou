@@ -1,6 +1,6 @@
 <?php
 
-namespace AboutYou\Entity;
+namespace AboutYou\Entities;
 
 
 class Category
@@ -22,7 +22,7 @@ class Category
     /**
      * List of Products that belong to a Category.
      *
-     * @var \AboutYou\Entity\Product[]
+     * @var \AboutYou\Entities\Product[]
      */
     public $products = [];
 }

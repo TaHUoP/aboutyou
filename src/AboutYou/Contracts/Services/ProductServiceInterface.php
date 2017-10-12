@@ -1,6 +1,6 @@
 <?php
 
-namespace AboutYou\Service;
+namespace AboutYou\Contracts\Services;
 
 /**
  * The implementation is responsible for resolving the id of the category from the
@@ -14,13 +14,23 @@ namespace AboutYou\Service;
 interface ProductServiceInterface
 {
     /**
+     * This method should read from a data source (JSON in our case)
+     * and return an unsorted list of products found in the data source.
+     *
+     * @param integer $categoryId
+     *
+     * @return \AboutYou\Entities\Product[]
+     */
+    public function getProductsByCategoryId($categoryId);
+
+    /**
      * Get Products by Category name.
      *
      * @param string $categoryName
      *
-     * @return \AboutYou\Entity\Product[]
+     * @return \AboutYou\Entities\Product[]
      *
      * @throws \InvalidArgumentException if category name is unknown.
      */
-    public function getProductsForCategory($categoryName);
+    public function getProductsByCategoryName($categoryName);
 }
