@@ -29,8 +29,6 @@ interface ProductServiceInterface
      * @param string $categoryName
      *
      * @return \AboutYou\Entities\Product[]
-     *
-     * @throws \InvalidArgumentException if category name is unknown.
      */
     public function getProductsByCategoryName($categoryName);
 }

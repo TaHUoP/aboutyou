@@ -16,11 +16,17 @@ class JsonDataSource implements DataSourceInterface
         'Clothes' => 17325
     ];
 
+    /**
+     * @inheritdoc
+     */
     public function getCategoryById($id)
     {
 
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getCategoryByName($name)
     {
         if (!isset($this->categoryNameToIdMapping[$name]))
