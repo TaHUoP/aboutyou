@@ -3,31 +3,71 @@
 namespace AboutYou\Entities;
 
 
-class Category
+class Category extends BaseEntity
 {
     /**
      * Id of the Category.
      *
      * @var int
      */
-    public $id;
+    private $id;
 
     /**
      * Name of the Category.
      *
      * @var string
      */
-    public $name;
+    private $name;
 
     /**
      * List of Products that belong to a Category.
      *
      * @var \AboutYou\Entities\Product[]
      */
-    public $products = [];
+    private $products = [];
 
     /**
-     * @return array
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param \AboutYou\Entities\Product[] $products
+     */
+    public function setProducts($products)
+    {
+        $this->products = $products;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return \AboutYou\Entities\Product[]
      */
     public function getProducts()
     {

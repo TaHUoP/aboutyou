@@ -3,21 +3,21 @@
 namespace AboutYou\Entities;
 
 
-class Price
+class Price extends BaseEntity
 {
     /**
      * Current price.
      *
      * @var int
      */
-    public $current;
+    private $current;
 
     /**
      * Old price.
      *
      * @var int|null
      */
-    public $old;
+    private $old;
 
     /**
      * Defines if the price is sale.
@@ -31,5 +31,69 @@ class Price
      *
      * @var \AboutYou\Entities\Variant
      */
-    public $variant;
+    private $variant;
+
+    /**
+     * @param int $current
+     */
+    public function setCurrent($current)
+    {
+        $this->current = $current;
+    }
+
+    /**
+     * @param int|null $old
+     */
+    public function setOld($old)
+    {
+        $this->old = $old;
+    }
+
+    /**
+     * @param bool $isSale
+     */
+    public function setIsSale($isSale)
+    {
+        $this->isSale = $isSale;
+    }
+
+    /**
+     * @param \AboutYou\Entities\Variant $variant
+     */
+    public function setVariant($variant)
+    {
+        $this->variant = $variant;
+    }
+
+    /**
+     * @return int
+     */
+    public function getCurrent()
+    {
+        return $this->current;
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getOld()
+    {
+        return $this->old;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getIsSale()
+    {
+        return $this->isSale;
+    }
+
+    /**
+     * @return \AboutYou\Entities\Variant
+     */
+    public function getVariant()
+    {
+        return $this->variant;
+    }
 }

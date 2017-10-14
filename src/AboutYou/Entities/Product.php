@@ -3,33 +3,97 @@
 namespace AboutYou\Entities;
 
 
-class Product
+class Product extends BaseEntity
 {
     /**
      * Id of the Product.
      *
      * @var int
      */
-    public $id;
+    private $id;
 
     /**
      * Name of the Product.
      *
      * @var string
      */
-    public $name;
+    private $name;
 
     /**
      * Description of the Product.
-     * 
+     *
      * @var string
      */
-    public $description;
+    private $description;
 
     /**
      * Unsorted list of Variants with their corresponding prices.
-     * 
+     *
      * @var \AboutYou\Entities\Variant[]
      */
-    public $variants = [];
+    private $variants = [];
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @param \AboutYou\Entities\Variant[] $variants
+     */
+    public function setVariants($variants)
+    {
+        $this->variants = $variants;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @return \AboutYou\Entities\Variant[]
+     */
+    public function getVariants()
+    {
+        return $this->variants;
+    }
 }
