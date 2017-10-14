@@ -100,6 +100,8 @@ class Variant extends BaseEntity
     public function setPrice(Price $price)
     {
         $this->price = $price;
+
+        $this->price->variant = $this;
     }
 
     /**

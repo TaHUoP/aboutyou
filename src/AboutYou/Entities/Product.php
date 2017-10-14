@@ -63,6 +63,10 @@ class Product extends BaseEntity
     public function setVariants($variants)
     {
         $this->variants = array_filter($variants, function($value){return $value instanceof Variant;});
+
+        foreach ($this->variants as $variant){
+            $variant->product = $this;
+        }
     }
 
     /**
