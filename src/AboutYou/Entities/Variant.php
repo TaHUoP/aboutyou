@@ -97,7 +97,7 @@ class Variant extends BaseEntity
     /**
      * @param \AboutYou\Entities\Price $price
      */
-    public function setPrice($price)
+    public function setPrice(Price $price)
     {
         $this->price = $price;
     }
@@ -105,7 +105,7 @@ class Variant extends BaseEntity
     /**
      * @param \AboutYou\Entities\Product $product
      */
-    public function setProduct($product)
+    public function setProduct(Product $product)
     {
         $this->product = $product;
     }

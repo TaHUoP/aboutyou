@@ -60,7 +60,7 @@ class Price extends BaseEntity
     /**
      * @param \AboutYou\Entities\Variant $variant
      */
-    public function setVariant($variant)
+    public function setVariant(Variant $variant)
     {
         $this->variant = $variant;
     }

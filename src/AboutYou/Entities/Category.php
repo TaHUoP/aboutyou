@@ -47,7 +47,7 @@ class Category extends BaseEntity
      */
     public function setProducts($products)
     {
-        $this->products = $products;
+        $this->products = array_filter($products, function($value){return $value instanceof Product;});
     }
 
     /**
