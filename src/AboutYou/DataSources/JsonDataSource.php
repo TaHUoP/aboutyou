@@ -8,15 +8,17 @@ use AboutYou\Factories\EntityFactory;
 
 class JsonDataSource implements DataSourceInterface
 {
+    /*
+     * Entire configuration class is not necessary for only one parameter (at least for now)
+     */
+    const DATA_DIR = '..' . DIRECTORY_SEPARATOR . 'data';
+
     /**
      * Maps from category name to the id for the category service.
      *
      * @var array
      */
-//    TODO: get mapping dynamically
-    private $categoryNameToIdMapping = [
-        'Clothes' => 17325
-    ];
+    private $categoryNameToIdMapping;
 
     /**
      * @var EntityFactory
@@ -29,6 +31,20 @@ class JsonDataSource implements DataSourceInterface
     public function __construct(EntityFactory $entityFactory)
     {
         $this->entityFactory = $entityFactory;
+
+        $this->categoryNameToIdMapping = $this->getNameToIdMapping();
+    }
+
+    /**
+     * @return array
+     */
+    private function getNameToIdMapping()
+    {
+        foreach (glob(self::DATA_DIR . DIRECTORY_SEPARATOR . '[0-9]*.json') as $file){
+            $mapping[json_decode(file_get_contents($file))->name] = basename($file, '.json');
+        }
+
+        return $mapping;
     }
 
     /**
@@ -78,7 +94,6 @@ class JsonDataSource implements DataSourceInterface
      */
     private function map($json, $className, $defaults = [])
     {
-//        TODO: check is json
         $data = json_decode($json);
 
         if($this->isCollection((array)$data)){
@@ -111,9 +126,7 @@ class JsonDataSource implements DataSourceInterface
      */
     public function getCategoryById($id)
     {
-//        TODO: move to config
-//        TODO: handle file absence
-        $category_data = file_get_contents("../data/$id.json");
+        $category_data = file_get_contents(sprintf('%s' . DIRECTORY_SEPARATOR . '%d.json', self::DATA_DIR, $id));
 
         return $this->map($category_data, 'Category');
     }
