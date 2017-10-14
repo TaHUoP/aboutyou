@@ -4,6 +4,7 @@ namespace AboutYou\DataSources;
 
 
 use AboutYou\Contracts\DataSources\DataSourceInterface;
+use AboutYou\Factories\EntityFactory;
 
 class JsonDataSource implements DataSourceInterface
 {
@@ -12,16 +13,109 @@ class JsonDataSource implements DataSourceInterface
      *
      * @var array
      */
+//    TODO: get mapping dynamically
     private $categoryNameToIdMapping = [
         'Clothes' => 17325
     ];
+
+    /**
+     * @var EntityFactory
+     */
+    private $entityFactory;
+
+    /**
+     * @param EntityFactory $entityFactory
+     */
+    public function __construct(EntityFactory $entityFactory)
+    {
+        $this->entityFactory = $entityFactory;
+    }
+
+    /**
+     * @param array $array
+     *
+     * @return boolean
+     */
+    private function isCollection($array)
+    {
+        /*
+         * I find more logical to put multiple to an array, so this entire method can be replaced with is_array function.
+         * But I was allowed to change app architecture, not data source structure.
+         */
+        return count($array) === count(array_filter(array_keys($array), 'is_numeric'));
+    }
+
+    /**
+     * @param mixed $item
+     *
+     * @return boolean
+     */
+    private function isScalar($item)
+    {
+        return is_scalar($item) || is_null($item);
+    }
+
+    /**
+     * @param string $className
+     *
+     * @return string
+     */
+    private function makeClassName($className)
+    {
+        /*
+         * This method won't work for multi word class names and for names whose plural form differs from plain 's' suffix.
+         * I'm a huge fan of universal solutions, but I was advised not to over-engineer it.
+         */
+        return substr($className, -1) == 's' ? substr(ucfirst($className), 0, -1) : ucfirst($className);
+    }
+
+    /**
+     * @param string $json
+     * @param string $className
+     * @param array $defaults
+     *
+     * @return object|array
+     */
+    private function map($json, $className, $defaults = [])
+    {
+//        TODO: check is json
+        $data = json_decode($json);
+
+        if($this->isCollection((array)$data)){
+            $item = [];
+
+            foreach($data as $id => $object){
+                $item[]= $this->map(json_encode($object), $className, ['id' => $id]);
+            }
+        }else{
+            $item = $this->entityFactory->make($className);
+
+            foreach ($defaults as $prop => $value){
+                $item->{$prop} = $value;
+            }
+
+            foreach($data as $prop => $value){
+                if($this->isScalar($value)){
+                    $item->{$prop} = $value;
+                } else {
+                    $item->{$prop} = $this->map(json_encode($value), $this->makeClassName($prop));
+                }
+            }
+        }
+
+        return $item;
+    }
 
     /**
      * @inheritdoc
      */
     public function getCategoryById($id)
     {
+//        TODO: move to config
+//        TODO: handle file absence
+        $category_data = file_get_contents("../data/$id.json");
 
+        return $this->map($category_data, 'Category');
     }
 
     /**
@@ -33,5 +127,7 @@ class JsonDataSource implements DataSourceInterface
         {
             throw new \InvalidArgumentException(sprintf('Given category name [%s] is not mapped.', $name));
         }
+
+        return $this->getCategoryById($this->categoryNameToIdMapping[$name]);
     }
 }
