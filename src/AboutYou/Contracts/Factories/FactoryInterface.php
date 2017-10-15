@@ -2,7 +2,7 @@
 
 namespace AboutYou\Factories;
 
-interface BaseFactory
+interface FactoryInterface
 {
     /**
      * @param string $type

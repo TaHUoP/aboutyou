@@ -3,7 +3,7 @@
 namespace AboutYou\Entities;
 
 
-class BaseEntity
+abstract class BaseEntity
 {
     /**
      * @param string $key

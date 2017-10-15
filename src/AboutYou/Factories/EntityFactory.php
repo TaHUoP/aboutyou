@@ -3,7 +3,7 @@
 namespace AboutYou\Factories;
 
 
-class EntityFactory implements BaseFactory
+class EntityFactory implements FactoryInterface
 {
     /**
      * @inheritdoc
