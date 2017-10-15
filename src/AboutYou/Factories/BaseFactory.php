@@ -10,14 +10,22 @@ abstract class BaseFactory implements FactoryInterface
     /**
      * @inheritdoc
      */
-    public function make($entityName, $constructorArgs = [])
+    public function make($className, $constructorArgs = [], $defaultData = [])
     {
-        $fullEntityName = $this->getNamespace() . "$entityName";
+        $fullClassName = $this->getNamespace() . "$className";
 
-        if(class_exists($fullEntityName)){
-            return new $fullEntityName(...$constructorArgs);
+        if(class_exists($fullClassName)){
+            $object = new $fullClassName(...$constructorArgs);
         } else {
-            throw new \InvalidArgumentException("Class $fullEntityName doesn't exists");
+            throw new \InvalidArgumentException("Class $fullClassName doesn't exists");
         }
+
+        foreach($defaultData as $prop => $value){
+            if(\AboutYou\Utilities\Helpers\is_scalar($value)){
+                $object->{$prop} = $value;
+            }
+        }
+
+        return $object;
     }
 }

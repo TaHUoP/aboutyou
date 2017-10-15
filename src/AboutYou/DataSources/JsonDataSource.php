@@ -79,18 +79,13 @@ class JsonDataSource implements DataSourceInterface
                 $item[]= $this->map(json_encode($object), $className, ['id' => $id]);
             }
         }else{
-            $item = $this->entityFactory->make($className);
+            $data = array_merge($defaults, (array)$data);
 
-            foreach ($defaults as $prop => $value){
-                $item->{$prop} = $value;
-            }
+            $item = $this->entityFactory->make($className, [], $data);
 
             foreach($data as $prop => $value){
-                if(\AboutYou\Utilities\Helpers\is_scalar($value)){
-                    $item->{$prop} = $value;
-                } else {
+                if(!\AboutYou\Utilities\Helpers\is_scalar($value))
                     $item->{$prop} = $this->map(json_encode($value), $this->makeClassName($prop));
-                }
             }
         }
 
