@@ -55,7 +55,7 @@ class JsonDataSource implements DataSourceInterface
     private function isCollection($array)
     {
         /*
-         * I find more logical to put multiple to an array, so this entire method can be replaced with is_array function.
+         * I find more logical to put multiple entities to an array, so this entire method can be replaced with is_array function.
          * But I was allowed to change app architecture, not data source structure.
          */
         return count($array) === count(array_filter(array_keys($array), 'is_numeric'));
