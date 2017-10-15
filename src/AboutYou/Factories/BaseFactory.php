@@ -8,6 +8,9 @@ use AboutYou\Validators\Validator;
 
 abstract class BaseFactory implements FactoryInterface
 {
+    /**
+     * @return string
+     */
     abstract protected function getNamespace();
 
     /**
