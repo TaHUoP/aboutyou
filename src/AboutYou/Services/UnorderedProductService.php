@@ -5,15 +5,12 @@ namespace AboutYou\Services;
 use AboutYou\Contracts\Services\CategoryServiceInterface;
 use AboutYou\Contracts\Services\ProductServiceInterface;
 
-/**
- * This class is an (unfinished) example implementation of an unordered product service.
- */
 class UnorderedProductService implements ProductServiceInterface
 {
     /**
      * @var CategoryServiceInterface
      */
-    private $categoryService;
+    protected $categoryService;
 
     /**
      * @param CategoryServiceInterface $categoryService

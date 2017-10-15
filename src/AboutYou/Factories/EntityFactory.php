@@ -3,19 +3,9 @@
 namespace AboutYou\Factories;
 
 
-class EntityFactory implements FactoryInterface
+class EntityFactory extends BaseFactory
 {
-    /**
-     * @inheritdoc
-     */
-    public function make($entityName)
-    {
-        $fullEntityName = "\\AboutYou\\Entities\\$entityName";
-
-        if(class_exists($fullEntityName)){
-            return new $fullEntityName();
-        } else {
-            throw new \InvalidArgumentException("Class $fullEntityName doesn't exists");
-        }
+    protected function getNamespace(){
+        return '\\AboutYou\\Entities\\';
     }
 }
