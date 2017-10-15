@@ -35,6 +35,7 @@ class Validator implements ValidatorInterface
         'numeric' => 'Field %s must be numeric',
         'positive' => 'Field %s must be positive',
         'required' => 'Field %s is required',
+        'validSize' => 'Field %s is not valid size',
     ];
 
     private function __construct(){}
@@ -146,5 +147,26 @@ class Validator implements ValidatorInterface
     private static function positive($field)
     {
         return is_numeric(self::$data[$field]) && self::$data[$field] > 0;
+    }
+
+    /**
+     * @param string $field
+     * @return bool
+     */
+    private static function validSize($field)
+    {
+        /*
+         * Sorry, I'm too lazy to look for valid numeric sizes :)
+         */
+        $validNonNumericSizes = [
+            'S',
+            'M',
+            'L',
+            'XL',
+            'XXL',
+            'XXXL'
+        ];
+
+        return in_array(self::$data[$field], $validNonNumericSizes) || self::positive($field);
     }
 }
