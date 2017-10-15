@@ -3,7 +3,9 @@
 namespace AboutYou\Entities;
 
 
-class Variant extends BaseEntity
+use AboutYou\Contracts\Validators\Validatable;
+
+class Variant extends BaseEntity implements Validatable
 {
     /**
      * Id of the Variant.
@@ -53,6 +55,19 @@ class Variant extends BaseEntity
      * @var \AboutYou\Entities\Product
      */
     private $product;
+
+    /**
+     * @inheritdoc
+     */
+    public static function getValidationRules()
+    {
+        return [
+            'isDefault' => 'bool|required',
+            'isAvailable' => 'bool|required',
+            'quantity' => 'numeric|required|notNegative',
+            'size' => 'validSize',
+        ];
+    }
 
     /**
      * @param int $id

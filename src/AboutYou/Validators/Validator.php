@@ -34,6 +34,7 @@ class Validator implements ValidatorInterface
         'array' => 'Field %s must be an array',
         'numeric' => 'Field %s must be numeric',
         'positive' => 'Field %s must be positive',
+        'notNegative' => 'Field %s must not be negative',
         'required' => 'Field %s is required',
         'validSize' => 'Field %s is not valid size',
     ];
@@ -147,6 +148,15 @@ class Validator implements ValidatorInterface
     private static function positive($field)
     {
         return is_numeric(self::$data[$field]) && self::$data[$field] > 0;
+    }
+
+    /**
+     * @param string $field
+     * @return bool
+     */
+    private static function notNegative($field)
+    {
+        return is_numeric(self::$data[$field]) && self::$data[$field] >= 0;
     }
 
     /**
