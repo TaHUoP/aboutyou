@@ -6,6 +6,9 @@ namespace AboutYou\Contracts\DataSources;
 interface DataSourceInterface
 {
     /**
+     * This method should read from a JSON data source
+     * and return an unsorted list of categories found in the data source.
+     *
      * @param integer $id
      *
      * @return \AboutYou\Entities\Category
