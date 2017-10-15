@@ -48,30 +48,6 @@ class JsonDataSource implements DataSourceInterface
     }
 
     /**
-     * @param array $array
-     *
-     * @return boolean
-     */
-    private function isCollection($array)
-    {
-        /*
-         * I find more logical to put multiple entities to an array, so this entire method can be replaced with is_array function.
-         * But I was allowed to change app architecture, not data source structure.
-         */
-        return count($array) === count(array_filter(array_keys($array), 'is_numeric'));
-    }
-
-    /**
-     * @param mixed $item
-     *
-     * @return boolean
-     */
-    private function isScalar($item)
-    {
-        return is_scalar($item) || is_null($item);
-    }
-
-    /**
      * @param string $className
      *
      * @return string
@@ -96,7 +72,7 @@ class JsonDataSource implements DataSourceInterface
     {
         $data = json_decode($json);
 
-        if($this->isCollection((array)$data)){
+        if(\AboutYou\Utilities\Helpers\is_collection($data)){
             $item = [];
 
             foreach($data as $id => $object){
@@ -110,7 +86,7 @@ class JsonDataSource implements DataSourceInterface
             }
 
             foreach($data as $prop => $value){
-                if($this->isScalar($value)){
+                if(\AboutYou\Utilities\Helpers\is_scalar($value)){
                     $item->{$prop} = $value;
                 } else {
                     $item->{$prop} = $this->map(json_encode($value), $this->makeClassName($prop));
