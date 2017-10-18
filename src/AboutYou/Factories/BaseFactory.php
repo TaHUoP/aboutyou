@@ -27,7 +27,7 @@ abstract class BaseFactory implements FactoryInterface
             throw new \InvalidArgumentException("Class $fullClassName doesn't exists");
         }
 
-        if($object instanceof Validatable)
+        if($object instanceof Validatable && !empty($defaultData))
             Validator::validate($defaultData, $object::getValidationRules());
 
         foreach($defaultData as $prop => $value){
